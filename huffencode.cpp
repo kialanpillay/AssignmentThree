@@ -10,7 +10,8 @@ int main(int argc, char* argv[])
         exit(1);
     }
 
-    PLLKIA010::Helper h;
-    h.countLetters(argv[1]);
+    PLLKIA010::Encoder e;
+    e.generateMap(argv[1]);
+    e.buildTree();
     return 0;
 }

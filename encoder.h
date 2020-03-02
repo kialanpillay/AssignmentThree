@@ -15,12 +15,11 @@ namespace PLLKIA010
             int frequency;
         
         public: 
-            HuffmanNode(char ch, int frequency);
+            HuffmanNode(char ch, int frequency, std::shared_ptr<HuffmanNode> l, std::shared_ptr<HuffmanNode> r);
             HuffmanNode(const HuffmanNode & rhs); //Copy Contructor
             HuffmanNode(HuffmanNode && rhs); //Move Contructor
             HuffmanNode & operator=(const HuffmanNode & rhs);
             HuffmanNode & operator=(HuffmanNode && rhs);
-            bool compare(const HuffmanNode& a, const HuffmanNode& b);
             ~HuffmanNode(void);
     };
 
@@ -28,26 +27,30 @@ namespace PLLKIA010
     {
         private: 
             std::shared_ptr<HuffmanNode> root;
-            std::priority_queue<HuffmanNode> queue;
         
         public: 
-            HuffmanTree(void);
+            HuffmanTree(std::shared_ptr<HuffmanNode>);
             HuffmanTree(const HuffmanTree & rhs); //Copy Contructor
             HuffmanTree(HuffmanTree && rhs); //Move Contructor
             HuffmanTree & operator=(const HuffmanTree & rhs);
             HuffmanTree & operator=(HuffmanTree && rhs);
             ~HuffmanTree(void);
+            std::shared_ptr<HuffmanNode> getRoot(void);
+            void traversal(std::shared_ptr<HuffmanNode>);
     };
 
-    class Helper
+    class Encoder
     {
         private:
             std::unordered_map<char, int> map;
             friend class HuffmanTree; 
+            friend class HuffmanNode; 
+
         public: 
-            Helper(void) = default;
-            ~Helper(void) = default;
-            void countLetters(std::string input);
+            Encoder(void) = default;
+            ~Encoder(void) = default;
+            void generateMap(std::string input);
+            void buildTree(void);  
     };
 }
 
