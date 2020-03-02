@@ -2,22 +2,25 @@
 #define ENCODER_H
 #include <memory>
 #include <string>
+#include <unordered_map>
+#include <queue>
 
 namespace PLLKIA010
 {
     class HuffmanNode
     {
-        private: 
+        public: 
             std::shared_ptr<HuffmanNode> left, right;
-            std::string ch;
+            char ch;
             int frequency;
         
         public: 
-            HuffmanNode(void);
+            HuffmanNode(char ch, int frequency);
             HuffmanNode(const HuffmanNode & rhs); //Copy Contructor
             HuffmanNode(HuffmanNode && rhs); //Move Contructor
             HuffmanNode & operator=(const HuffmanNode & rhs);
             HuffmanNode & operator=(HuffmanNode && rhs);
+            bool compare(const HuffmanNode& a, const HuffmanNode& b);
             ~HuffmanNode(void);
     };
 
@@ -25,6 +28,7 @@ namespace PLLKIA010
     {
         private: 
             std::shared_ptr<HuffmanNode> root;
+            std::priority_queue<HuffmanNode> queue;
         
         public: 
             HuffmanTree(void);
@@ -33,6 +37,17 @@ namespace PLLKIA010
             HuffmanTree & operator=(const HuffmanTree & rhs);
             HuffmanTree & operator=(HuffmanTree && rhs);
             ~HuffmanTree(void);
+    };
+
+    class Helper
+    {
+        private:
+            std::unordered_map<char, int> map;
+            friend class HuffmanTree; 
+        public: 
+            Helper(void) = default;
+            ~Helper(void) = default;
+            void countLetters(std::string input);
     };
 }
 
