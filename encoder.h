@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <queue>
+#include "huffman.h"
 
 namespace PLLKIA010
 {
@@ -11,14 +12,20 @@ namespace PLLKIA010
     {
         private:
             std::unordered_map<char, int> map;
-            friend class HuffmanTree; 
-            friend class HuffmanNode; 
-
+            std::unordered_map<char,std::string> codes;
+            HuffmanTree *tree;
+            int inputSize, bitSize;
         public: 
             Encoder(void) = default;
-            ~Encoder(void) = default;
+            ~Encoder(void);
             void generateMap(std::string input);
-            void buildTree(void);  
+            void buildTree(void); 
+            void generateCodes(void);
+            void treeTraversal(const std::shared_ptr<HuffmanNode>, std::string bitstring);
+            void compress(std::string input, std::string output);
+            void binaryCompress(std::string input, std::string output);
+            int getBitSize(void);
+            int getInputSize(void);
     };
 }
 

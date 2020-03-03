@@ -14,8 +14,9 @@ huffman.o: huffman.cpp huffman.h
 	$(CC) $(CCFLAGS) -c huffman.cpp
   
 clean:
-	@rm -f *.o && rm -f huffencode
+	@rm -f *.o && rm -f huffencode && rm -f *.bin
+	@rm -f output.txt && rm -f output.hdr
    
 run:
-	@./huffencode input.txt output.txt
+	@./huffencode input.txt output
 

@@ -5,10 +5,9 @@
 #include <queue>
 #include "huffman.h"
 
-using namespace std;
 using namespace PLLKIA010;
 
-HuffmanNode::HuffmanNode(char ch, int frequency, shared_ptr<HuffmanNode> l, shared_ptr<HuffmanNode> r): left(l), right(r), ch(ch), frequency(frequency){}
+HuffmanNode::HuffmanNode(char ch, int frequency, std::shared_ptr<HuffmanNode> l, std::shared_ptr<HuffmanNode> r): left(l), right(r), ch(ch), frequency(frequency){}
 
 HuffmanNode::~HuffmanNode(){
     if(frequency!=-1){
@@ -45,7 +44,10 @@ HuffmanNode & HuffmanNode::operator=(HuffmanNode && rhs){
     return *this;
 }
 
-HuffmanTree::HuffmanTree(shared_ptr<HuffmanNode> root):root(root){}
+
+HuffmanTree::HuffmanTree(std::shared_ptr<HuffmanNode> root):root(root){}
+
+HuffmanTree::HuffmanTree():root(nullptr){}
 
 HuffmanTree::~HuffmanTree(){
     root = nullptr;
@@ -69,7 +71,7 @@ HuffmanTree & HuffmanTree::operator=(HuffmanTree && rhs){
     return *this;
 }
 
-shared_ptr<HuffmanNode> HuffmanTree::getRoot(){
+std::shared_ptr<HuffmanNode> HuffmanTree::getRoot(){
     return root;
 }
 
