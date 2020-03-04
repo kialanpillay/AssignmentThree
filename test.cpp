@@ -22,3 +22,61 @@ TEST_CASE("Build Tree","[all]") {
 	e.buildTree();
 	REQUIRE(e.getTree()->getRoot()->frequency == 11);
 }
+
+TEST_CASE("Generate Codes","[all]") {
+	std::cout << "Generate Codes Test" << std::endl;
+	PLLKIA010::Encoder e;
+	e.generateMap("test.txt");
+	e.buildTree();
+	e.generateCodes();
+	REQUIRE(e.getCodes()['e']=="1111");
+	REQUIRE(e.getCodes()['r']=="1110");
+	REQUIRE(e.getCodes()['l']=="10");
+	REQUIRE(e.getCodes()['W']=="001");
+	REQUIRE(e.getCodes()[' ']=="011");
+	REQUIRE(e.getCodes()['H']=="010");
+	REQUIRE(e.getCodes()['o']=="110");
+	REQUIRE(e.getCodes()['d']=="000");
+}
+
+TEST_CASE("Input Size Test","[all]") {
+	std::cout << "Input Size Test" << std::endl;
+	PLLKIA010::Encoder e;
+	e.generateMap("test.txt");
+	e.buildTree();
+	e.generateCodes();
+	e.compress("input.txt","output");
+	REQUIRE(e.getInputSize() == 576);
+}
+
+TEST_CASE("Output Size Test","[all]") {
+	std::cout << "Compressed Output Size Test" << std::endl;
+	PLLKIA010::Encoder e;
+	e.generateMap("test.txt");
+	e.buildTree();
+	e.generateCodes();
+	e.compress("input.txt","output");
+	REQUIRE(e.getBitSize() == 568);
+}
+
+
+TEST_CASE("Compression Test","[all]") {
+	std::cout << "Compression Test" << std::endl;
+	PLLKIA010::Encoder e;
+	e.generateMap("test.txt");
+	e.buildTree();
+	e.generateCodes();
+	e.compress("input.txt","output");
+	REQUIRE((int)((double)e.getInputSize()/(double)e.getBitSize()) == 1);
+}
+
+TEST_CASE("Binary Compression Test","[all]") {
+	std::cout << "Binary Compression Test" << std::endl;
+	PLLKIA010::Encoder e;
+	e.generateMap("test.txt");
+	e.buildTree();
+	e.generateCodes();
+	e.binaryCompress("input.txt","output");
+	REQUIRE((int)((double)e.getInputSize()/(double)e.getBitSize()) == 8);
+	REQUIRE((int)(1/((double)e.getInputSize()/(double)e.getBitSize()) * 100) == 12);
+}

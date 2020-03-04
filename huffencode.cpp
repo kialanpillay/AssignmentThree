@@ -18,6 +18,8 @@ int main(int argc, char* argv[])
     e.compress(argv[1], argv[2]);
     e.binaryCompress(argv[1], argv[2]);
     cout << "Text sucessfully compressed!" << std::endl;
+    cout << e.getInputSize() << endl;
+    cout << e.getBitSize() << endl;
     double factor = (double)e.getInputSize()/(double)e.getBitSize();
     double percentage = 1/factor;
     cout << "================================================" << std::endl;

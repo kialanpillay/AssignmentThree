@@ -141,6 +141,7 @@ void Encoder::compress(std::string input, std::string output){
     std::strcpy (cstr, buffer.c_str());
     std::ofstream out(output+".txt");
     out << cstr;
+    bitSize = sizeof(out);
     out.close();
     delete [] cstr;
 }
