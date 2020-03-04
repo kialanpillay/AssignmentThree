@@ -24,8 +24,12 @@ namespace PLLKIA010
             void treeTraversal(const std::shared_ptr<HuffmanNode>, std::string bitstring);
             void compress(std::string input, std::string output);
             void binaryCompress(std::string input, std::string output);
+            void extract(std::string input, std::string output);
             int getBitSize(void);
             int getInputSize(void);
+            HuffmanTree* getTree(void);
+            std::unordered_map<char, int> getMap(void);
+            std::unordered_map<char, std::string> getCodes(void);
     };
 }
 
