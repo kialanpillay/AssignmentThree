@@ -22,7 +22,7 @@ test.o: test.cpp
 
 clean:
 	@rm -f *.o && rm -f huffencode && rm -f test && rm -f *.bin
-	@rm -f output.txt && rm -f output.hdr
+	@rm -f output.txt && rm -f *.hdr
    
 run:
 	@./huffencode input.txt output

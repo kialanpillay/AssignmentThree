@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include <queue>
+#include <math.h>
 #include "encoder.h"
 #include "huffman.h"
 
@@ -118,7 +119,8 @@ void Encoder::generateCodes(){
 }
 
 void Encoder::compress(std::string input, std::string output){
-    std::ifstream in(input); 
+    std::ifstream in(input);
+    in >> std::noskipws; 
     std::string buffer;
     char c;
 
@@ -148,32 +150,38 @@ void Encoder::compress(std::string input, std::string output){
 
 void Encoder::binaryCompress(std::string input, std::string output){
     std::ifstream in(input); 
+    in >> std::noskipws; 
     std::string buffer;
     char c;
-
+    int i = 0;
     while (in >> c)
     {   
         std::unordered_map<char,std::string>::iterator it = codes.find(c);
         buffer+=it->second;
     }
     in.close();
-
     std::ofstream out(output+".bin",std::ios::binary);
-    unsigned char byte = 0;
-    int i = 0;
-    std::string str = "";
-    if (i + 8 < buffer.length())
-        str = buffer.substr(i, i + 8);
-    else
-        str = buffer.substr(i, buffer.length());
-    for (unsigned b = 0; b != 8; ++b)
+    for (i = 0; i < buffer.length(); i+=8)
     {
-        if (b < str.length())
-            byte |= (str[b] & 1) << b; 
+        unsigned char byte = 0;
+        std::string str = "";
+        if (i + 8 < buffer.length())
+            str = buffer.substr(i, i + 8);
         else
-            byte |= 1 << b;
+            str = buffer.substr(i, buffer.length());
+        for (unsigned b = 0; b != 8; ++b)
+        {
+            if (b < str.length())
+                byte |= (str[b] & 1) << b; 
+            else
+                byte |= 1 << b;
+        }
+        out << byte;
     }
-    out << byte;
+    std::ofstream header(output+"_bin.hdr");
+    header << buffer.length() << "\n";
+    header.close();
+    
     bitSize = (sizeof(out)/8) + (sizeof(out)%8 ? 1 : 0);
     out.close();
 }
@@ -187,42 +195,64 @@ std::unordered_map<char, std::string> Encoder::getCodes(){
 }
 
 void Encoder::extract(std::string input, std::string output){
-    int i = 0,j=0,k=0;
-    std::bitset<8> setByte;
+    int i =0, j=0, k=0;
     std::ifstream in(input+".bin", std::ios::binary);
+    std::ifstream header(input+"_bin.hdr");
     std::ofstream out("a.txt");
     std::string concat = "";
     std::string bitStr = "";
     std::string reverse = "";
-    int charCount = 0;
-    for (i = 0; i < 20; i++)
-    {
-        setByte = in.get();
-        bitStr = setByte.to_string();
+    std::string s = "";
+    int count = 0, numBits = 0;
+    header >> numBits;
+    int numBytes = ceil((double)numBits/8);
+    std::bitset<8> byte;
+
+    for (i = 0; i < numBytes; i++){
+        byte = in.get();
+
+        bitStr = byte.to_string();
         reverse = "";
-        for (k = 7; k>=0; k--)
+        
+        for (k = 7; k>=0; k--){
             reverse += bitStr[k];
-        for (j = 0; j < 8; j++)
+        }
+        s += reverse;
+
+    }
+        std::cout << s << std::endl;
+        
+        for (j = 0; j < numBits; j++)
         {   
-            in.seekg (i*20);
-            //in.read ((char*)setByte, 20);
-            concat += reverse[j];
-            char c[concat.size() + 1];
-            concat.copy(c, concat.size() + 1);
-            if (map[*c])
+            concat += s[j];
+
+            char key;
+
+            for (auto itr = codes.begin(); itr != codes.end(); ++itr) { 
+                    if(itr->second == concat){
+                        key = itr->first; 
+                        break;
+                    }
+                        
+            }
+
+
+            if (codes.find(key)!= codes.end())
             {   
 
-                out << map[*c];
-                charCount++;
+                out << key;
+                count++;
                 concat = "";
-                if (charCount == 20) // if we have written original amount stop
+                key = '\0';
+                if (count == numBits) // if we have written original amount stop
                 {
                     out.close();
                 }
 
             }
         }
-    }
+    
+    
     out.close();
 
 }

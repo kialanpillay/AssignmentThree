@@ -22,9 +22,9 @@ namespace PLLKIA010
             void buildTree(void); 
             void generateCodes(void);
             void treeTraversal(const std::shared_ptr<HuffmanNode>, std::string bitstring);
-            void compress(std::string input, std::string output);
-            void binaryCompress(std::string input, std::string output);
-            void extract(std::string input, std::string output);
+            void compress(const std::string input, const std::string output);
+            void binaryCompress(const std::string input, const std::string output);
+            void extract(const std::string input, const std::string output);
             int getBitSize(void);
             int getInputSize(void);
             HuffmanTree* getTree(void);
