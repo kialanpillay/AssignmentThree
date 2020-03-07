@@ -6,14 +6,15 @@ The purpose of the Makefile is to automatically compile and link the C++ source 
 
 ```make run``` will run the executable with the default arguments (```input.txt``` and ```output```)
 This will encode the string "Hello World" and write it to a file ```output.txt/output.bin``` for each compression method.
-The binary file contains the actual packed bits that map to the input characters.
+The binary file contains the actual packed bits that map to the input characters. A sample input text file is provided.
+The extracted text from the binary file (unpacked bits) is written to ```extracted.txt```
 
 ```make clean``` will delete all object files, bin files, header (.hdr) files, and the executable. 
 
 ```make test``` compiles the unit tests into an executable called ```huffencode```
 ```./test "[all]"``` is the command that will run all of the unit tests. Note that the inverted commas are required. 
 
-This is the format of arugments that can be passed into the program.
+This is the format of arugments that can be passed into the program. 
 ```./huffencode <input_file_name.txt> <output_file_name>```
 
 ## huffman.h

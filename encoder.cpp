@@ -198,7 +198,7 @@ void Encoder::extract(std::string input, std::string output){
     int i =0, j=0, k=0;
     std::ifstream in(input+".bin", std::ios::binary);
     std::ifstream header(input+"_bin.hdr");
-    std::ofstream out("a.txt");
+    std::ofstream out(output);
     std::string code = "";
     std::string buffer = "";
     std::string reverse = "";

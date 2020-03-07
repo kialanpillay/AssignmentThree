@@ -71,7 +71,7 @@ TEST_CASE("Compression Test","[all]") {
 }
 
 TEST_CASE("Binary Compression Test","[all]") {
-	std::cout << "Binary Compression Test" << std::endl;
+	std::cout << "Binary Compression Test (Bit Packing)" << std::endl;
 	PLLKIA010::Encoder e;
 	e.generateMap("test.txt");
 	e.buildTree();
@@ -79,4 +79,32 @@ TEST_CASE("Binary Compression Test","[all]") {
 	e.binaryCompress("input.txt","output");
 	REQUIRE((int)((double)e.getInputSize()/(double)e.getBitSize()) == 8);
 	REQUIRE((int)(1/((double)e.getInputSize()/(double)e.getBitSize()) * 100) == 12);
+}
+
+TEST_CASE("Binary Extraction Test","[all]") {
+	std::cout << "Binary Extraction Test (Bit Unpacking)" << std::endl;
+	PLLKIA010::Encoder e;
+	e.generateMap("test.txt");
+	e.buildTree();
+	e.generateCodes();
+	e.binaryCompress("test.txt","output");
+	e.extract("output","extracted_test.txt");
+
+	std::ifstream in("test.txt"); 
+    in >> std::noskipws; 
+    std::string input;
+	char c;
+    while (in >> c)
+    {   
+        input+=c;
+    }
+
+	std::ifstream extract("extracted_test.txt"); 
+    extract >> std::noskipws; 
+    std::string output;
+    while (extract >> c)
+    {   
+        output+=c;
+    }
+	REQUIRE(input == output);
 }

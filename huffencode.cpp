@@ -30,6 +30,8 @@ int main(int argc, char* argv[])
     cout << "Compression Factor (Original Size):     " << factor << "x " << std::endl;
     cout << "Compression Percentage (Original Size): " << percentage * 100 << "%" << std::endl;
     cout << "Text sucessfully compressed!" << std::endl;
-    e.extract(argv[2], argv[1]);
+    e.extract(argv[2], "extracted.txt");
+    cout << "================================================" << std::endl;
+    cout << "Text sucessfully compressed to extract.txt! (Extra Credit)" << std::endl;
     return 0;
 }
