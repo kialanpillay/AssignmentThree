@@ -199,11 +199,12 @@ void Encoder::extract(std::string input, std::string output){
     std::ifstream in(input+".bin", std::ios::binary);
     std::ifstream header(input+"_bin.hdr");
     std::ofstream out("a.txt");
-    std::string concat = "";
-    std::string bitStr = "";
+    std::string code = "";
+    std::string buffer = "";
     std::string reverse = "";
-    std::string s = "";
+    std::string bitString = "";
     int count = 0, numBits = 0;
+
     header >> numBits;
     int numBytes = ceil((double)numBits/8);
     std::bitset<8> byte;
@@ -211,25 +212,24 @@ void Encoder::extract(std::string input, std::string output){
     for (i = 0; i < numBytes; i++){
         byte = in.get();
 
-        bitStr = byte.to_string();
+        buffer = byte.to_string();
         reverse = "";
         
         for (k = 7; k>=0; k--){
-            reverse += bitStr[k];
+            reverse += buffer[k];
         }
-        s += reverse;
+        bitString += reverse;
 
     }
-        std::cout << s << std::endl;
         
         for (j = 0; j < numBits; j++)
         {   
-            concat += s[j];
+            code += bitString[j];
 
             char key;
 
             for (auto itr = codes.begin(); itr != codes.end(); ++itr) { 
-                    if(itr->second == concat){
+                    if(itr->second == code){
                         key = itr->first; 
                         break;
                     }
@@ -242,11 +242,12 @@ void Encoder::extract(std::string input, std::string output){
 
                 out << key;
                 count++;
-                concat = "";
+                code = "";
                 key = '\0';
                 if (count == numBits) // if we have written original amount stop
                 {
                     out.close();
+                    break;
                 }
 
             }
