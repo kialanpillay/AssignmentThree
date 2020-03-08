@@ -20,19 +20,6 @@ struct Compare {
     }
 };
 
-bool compare(const HuffmanNode& a, const HuffmanNode& b)
-{
-    //return (a>b);
-    return true;
-}
-
-
-bool operator>(const HuffmanNode& a, const HuffmanNode& b){
-    if(a.frequency > b.frequency){
-        return true;
-    }
-    return false;
-}
 
 int Encoder::getBitSize(){
     return bitSize;

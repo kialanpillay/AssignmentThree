@@ -45,7 +45,7 @@ TEST_CASE("Input Size Test","[all]") {
 	e.generateMap("test.txt");
 	e.buildTree();
 	e.generateCodes();
-	e.compress("input.txt","output");
+	e.compress("test.txt","output");
 	REQUIRE(e.getInputSize() == 576);
 }
 
@@ -55,7 +55,7 @@ TEST_CASE("Output Size Test","[all]") {
 	e.generateMap("test.txt");
 	e.buildTree();
 	e.generateCodes();
-	e.compress("input.txt","output");
+	e.compress("test.txt","output");
 	REQUIRE(e.getBitSize() == 568);
 }
 
@@ -66,7 +66,7 @@ TEST_CASE("Compression Test","[all]") {
 	e.generateMap("test.txt");
 	e.buildTree();
 	e.generateCodes();
-	e.compress("input.txt","output");
+	e.compress("test.txt","output");
 	REQUIRE((int)((double)e.getInputSize()/(double)e.getBitSize()) == 1);
 }
 
@@ -76,7 +76,7 @@ TEST_CASE("Binary Compression Test","[all]") {
 	e.generateMap("test.txt");
 	e.buildTree();
 	e.generateCodes();
-	e.binaryCompress("input.txt","output");
+	e.binaryCompress("test.txt","output");
 	REQUIRE((int)((double)e.getInputSize()/(double)e.getBitSize()) == 8);
 	REQUIRE((int)(1/((double)e.getInputSize()/(double)e.getBitSize()) * 100) == 12);
 }

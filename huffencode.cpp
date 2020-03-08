@@ -32,6 +32,6 @@ int main(int argc, char* argv[])
     cout << "Text sucessfully compressed!" << std::endl;
     e.extract(argv[2], "extracted.txt");
     cout << "================================================" << std::endl;
-    cout << "Text sucessfully compressed to extract.txt! (Extra Credit)" << std::endl;
+    cout << "Text sucessfully extracted to extract.txt! (Extra Credit)" << std::endl;
     return 0;
 }
