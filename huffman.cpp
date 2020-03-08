@@ -70,6 +70,7 @@ HuffmanTree & HuffmanTree::operator=(const HuffmanTree & rhs){
 HuffmanTree & HuffmanTree::operator=(HuffmanTree && rhs){
     if(this != &rhs) { 
         root = rhs.root;
+        rhs.root = nullptr;
     }
     return *this;
 }
