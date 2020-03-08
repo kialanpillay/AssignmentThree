@@ -20,8 +20,9 @@ HuffmanNode::~HuffmanNode(){
 
 HuffmanNode::HuffmanNode(const HuffmanNode & rhs): left(rhs.left), right(rhs.right), ch(rhs.ch), frequency(rhs.frequency){}
     
-HuffmanNode::HuffmanNode(HuffmanNode && rhs): left(std::move(rhs.left)), right(std::move(rhs.right)), ch(std::move(rhs.ch)), frequency(rhs.frequency) {
+HuffmanNode::HuffmanNode(HuffmanNode && rhs): left(std::move(rhs.left)), right(std::move(rhs.right)), ch(rhs.ch), frequency(rhs.frequency) {
     rhs.frequency = -1;
+    rhs.ch = '\0';
 }
 
 HuffmanNode & HuffmanNode::operator=(const HuffmanNode & rhs){
@@ -37,9 +38,11 @@ HuffmanNode & HuffmanNode::operator=(const HuffmanNode & rhs){
 HuffmanNode & HuffmanNode::operator=(HuffmanNode && rhs){
     if(this != &rhs) { 
         frequency = rhs.frequency; 
-        ch = std::move(rhs.ch);
-        left = rhs.left;
-        right = rhs.right;
+        ch = rhs.ch;
+        left = std::move(rhs.left);
+        right = std::move(rhs.right);
+        rhs.frequency = -1;
+        rhs.ch = '\0';
     }
     return *this;
 }
