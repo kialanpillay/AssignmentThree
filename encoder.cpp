@@ -14,7 +14,7 @@ Encoder::~Encoder(){
 }
 
 struct Compare {
-    bool operator()(const HuffmanNode& a, const HuffmanNode& b)
+    bool operator()(const HuffmanNode& a, const HuffmanNode& b) const
     {
       return a.frequency > b.frequency;
     }
