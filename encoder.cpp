@@ -21,15 +21,15 @@ struct Compare {
 };
 
 
-int Encoder::getBitSize(){
+int Encoder::getBitSize() const{
     return bitSize;
 }
 
-int Encoder::getInputSize(){
+int Encoder::getInputSize() const{
     return inputSize;
 }
 
-HuffmanTree* Encoder::getTree(){
+HuffmanTree* Encoder::getTree() const{
     return tree;
 }
 
@@ -173,11 +173,11 @@ void Encoder::binaryCompress(std::string input, std::string output){
     out.close();
 }
 
-std::unordered_map<char, int> Encoder::getMap(){
+std::unordered_map<char, int> Encoder::getMap() const{
     return map;
 }
 
-std::unordered_map<char, std::string> Encoder::getCodes(){
+std::unordered_map<char, std::string> Encoder::getCodes() const{
     return codes;
 }
 

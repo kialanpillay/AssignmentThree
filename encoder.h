@@ -25,11 +25,11 @@ namespace PLLKIA010
             void compress(const std::string input, const std::string output);
             void binaryCompress(const std::string input, const std::string output);
             void extract(const std::string input, const std::string output);
-            int getBitSize(void);
-            int getInputSize(void);
-            HuffmanTree* getTree(void);
-            std::unordered_map<char, int> getMap(void);
-            std::unordered_map<char, std::string> getCodes(void);
+            int getBitSize(void) const;
+            int getInputSize(void) const;
+            HuffmanTree* getTree(void) const;
+            std::unordered_map<char, int> getMap(void) const;
+            std::unordered_map<char, std::string> getCodes(void) const;
     };
 }
 

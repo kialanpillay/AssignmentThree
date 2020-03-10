@@ -39,7 +39,7 @@ namespace PLLKIA010
             HuffmanTree & operator=(const HuffmanTree & rhs);
             HuffmanTree & operator=(HuffmanTree && rhs);
             ~HuffmanTree(void);
-            std::shared_ptr<HuffmanNode> getRoot(void);
+            std::shared_ptr<HuffmanNode> getRoot(void) const;
     };
 }
 

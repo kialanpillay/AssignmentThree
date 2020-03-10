@@ -75,7 +75,7 @@ HuffmanTree & HuffmanTree::operator=(HuffmanTree && rhs){
     return *this;
 }
 
-std::shared_ptr<HuffmanNode> HuffmanTree::getRoot(){
+std::shared_ptr<HuffmanNode> HuffmanTree::getRoot() const{
     return root;
 }
 
