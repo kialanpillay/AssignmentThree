@@ -2,6 +2,45 @@
 #include "catch.hpp"
 #include "encoder.h"
 
+TEST_CASE("Huffman Node Copy Constructor","[all]") {
+	std::cout << "Huffman Node Copy Constructor" << std::endl;
+	PLLKIA010::HuffmanNode n1('a', 1, nullptr, nullptr);
+	PLLKIA010::HuffmanNode n2 = n1;
+	REQUIRE(n1.frequency == 1);
+	REQUIRE(n2.frequency == 1);
+}
+
+
+TEST_CASE("Huffman Node Move Constructor","[all]") {
+	std::cout << "Huffman Node Move Constructor" << std::endl;
+	PLLKIA010::HuffmanNode n1('a', 1, nullptr, nullptr);
+	PLLKIA010::HuffmanNode n2 = std::move(n1);
+	REQUIRE(n2.frequency == 1);
+	REQUIRE(n1.frequency == -1);
+}
+
+
+TEST_CASE("Huffman Node Copy Assignment Operator","[all]") {
+	std::cout << "Huffman Node Copy Assignment Operator" << std::endl;
+	PLLKIA010::HuffmanNode n1('a', 1, nullptr, nullptr);
+	PLLKIA010::HuffmanNode n2('b', 1, nullptr, nullptr);
+	n2 = n1;
+	REQUIRE(n1.frequency == 1);
+	REQUIRE(n2.frequency == 1);
+}
+
+
+TEST_CASE("Huffman Node Move Assignment Operator","[all]") {
+	std::cout << "Huffman Node Move Assignment Operator" << std::endl;
+	PLLKIA010::HuffmanNode n1('a', 1, nullptr, nullptr);
+	PLLKIA010::HuffmanNode n2('b', 2, nullptr, nullptr);
+	REQUIRE(n2.frequency == 2);
+	n2 = std::move(n1);
+	REQUIRE(n2.frequency == 1);
+	REQUIRE(n1.frequency == -1);
+}
+
+
 TEST_CASE("Map Generation","[all]") {
 	std::cout << "Frequency Map Generation Test" << std::endl;
 	PLLKIA010::Encoder e;

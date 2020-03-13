@@ -2,6 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <bitset>
+#include <cstring>
 #include <queue>
 #include <math.h>
 #include "encoder.h"
